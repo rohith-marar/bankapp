@@ -1,0 +1,37 @@
+<form [formGroup]="LoginForm" (ngSubmit)="login()">
+<div class="container">
+
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4"><h1>Welcome To Sbk</h1></div>
+      <div class="col-4"></div>
+      {{aim}}
+    </div>
+    
+    
+        <div class="mb-3">
+          <label for="acno" class="form-label">AccountNumber</label>
+          <input type="text" formControlName="ano" name="ano" class="form-control" id="acno" aria-describedby="emailHelp">
+          <div *ngIf="(this.LoginForm.get('ano')?.touched||this.LoginForm.get('ano')?.dirty)&&this.LoginForm.get('ano')?.errors" style="color: crimson;" class="error">invalid AccountNumber</div>
+        </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">Password</label>
+          <input type="password"  formControlName="pswd" name="pswd" class="form-control" id="pwd">
+          <div *ngIf="(this.LoginForm.get('pswd')?.touched||this.LoginForm.get('pswd')?.dirty)&&this.LoginForm.get('pswd')?.errors" style="color: crimson;" class="error">invalid password</div>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit"  class="btn  btn-primary btn-lg btn-block ">Login</button>
+        <a routerLink="registeration">Regiseter</a>
+    
+    
+    
+    
+    
+    
+    </div>
+
+</form>
+

@@ -1,0 +1,58 @@
+<div class="container">
+
+  <h1 style="text-align: center; color: cadetblue;" >Welcome {{this.dataService.currentUser}} To Sbk</h1>
+    <br>
+    
+    <form [formGroup]="depositForm" (ngSubmit)="deposit()" >
+      <h1 style="color: orange;">Cash deposit</h1>
+        <div class="mb-3">
+          <label for="acno" class="form-label">AccountNumber</label>
+          <input type="text" formControlName="ano" name="ano" class="form-control" id="acno" aria-describedby="emailHelp">
+          <div *ngIf="(this.depositForm.get('ano')?.touched||this.depositForm.get('ano')?.dirty)&&this.depositForm.get('ano')?.errors" style="color: blueviolet;" class="error">Invalid AccountNumber</div>
+        </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">Password</label>
+          <input type="password" formControlName="pswd" name="pswd" class="form-control" id="pwd">
+          <div *ngIf="(this.depositForm.get('pswd')?.touched||this.depositForm.get('pswd')?.dirty)&&this.depositForm.get('pswd')?.errors" style="color: blueviolet;" class="error">Invalid Password</div>
+        </div>
+        <div class="mb-3">
+            <label for="amt" class="form-label">Amount</label>
+            <input type="name" formControlName="amount" name="amount" class="form-control" id="amt">
+            <div *ngIf="(this.depositForm.get('amount')?.touched||this.depositForm.get('amount')?.dirty)&&this.depositForm.get('amount')?.errors" style="color: blueviolet;"  class="error">Invalid Amount</div>
+          </div>
+        
+        <button type="submit" style="margin-left: 40%;"  class="btn btn-primary">DEPOSIT</button>
+        <br><br>
+      </form>
+
+
+      <form [formGroup]="withdrawForm" (ngSubmit)="withdraw()" >
+        <h1 style="color: chartreuse;">Cash Withdrawal</h1>
+        <div class="mb-3">
+          <label for="acno" class="form-label">AccountNumber</label>
+          <input type="text" formControlName="ano" name="ano" class="form-control" id="acno" aria-describedby="emailHelp">
+          <div *ngIf="(this.withdrawForm.get('ano')?.touched||this.withdrawForm.get('ano')?.dirty)&&this.withdrawForm.get('ano')?.errors" style="color: blueviolet;" class="error">Invalid AccountNumber</div>
+        </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">Password</label>
+          <input type="password" formControlName="pswd" name="pswd" class="form-control" id="pwd">
+          <div *ngIf="(this.withdrawForm.get('pswd')?.touched||this.withdrawForm.get('pswd')?.dirty)&&this.withdrawForm.get('pswd')?.errors" style="color: blueviolet;" class="error">Invalid Password</div>
+        </div>
+        <div class="mb-3">
+            <label for="amt" class="form-label">Amount</label>
+            <input type="name" formControlName="amount" name="amount" class="form-control" id="amt">
+            <div *ngIf="(this.withdrawForm.get('amount')?.touched||this.withdrawForm.get('amount')?.dirty)&&this.withdrawForm.get('amount')?.errors" style="color: blueviolet;" class="error">Invalid amount</div>
+          </div>
+        
+        <button type="submit" style="margin-left: 40%; background-color: green;"  class="btn btn-primary">WITHDRAW</button> 
+        <br><br>
+
+    
+    
+    
+    
+    
+      </form>
+    </div>
+  
+
