@@ -1,4 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {  environment } from '../../environments/environment';
+const options={
+  withCredentials:true
+}
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +21,7 @@ export class DataService {
   currentUser:any;
   
   
-  constructor() {
+  constructor(private http:HttpClient) {
     this.getDetails()
    }
 
@@ -36,85 +41,109 @@ export class DataService {
     }
   }
   register(acno: any, name: any, password: any) {
-    if (acno in this.accountDetails) {
-      alert("User already exists ,please login")
-      return false;
-    }
+    // if (acno in this.accountDetails) {
+    //   alert("User already exists ,please login")
+    //   return false;
+    // }
 
-    this.accountDetails[acno] = {
+    const data = {
       acno,
       name,
       balance: 0,
       password
     }
-    this.saveDetails();
-    alert("registeration successful")
-    console.log(this.accountDetails);
-    return true;
+    return this.http.post(environment.apiUrl+'/register',data)
+    // this.saveDetails();
+    // alert("registeration successful")
+    // console.log(this.accountDetails);
+    // return true;
 
   }
   login(acno: any, password: any) {
-    let dataset = this.accountDetails
-    if (acno in dataset) {
-      var pswd1 = dataset[acno].password;
-      if (pswd1 == password) {
-        this.currentUser=dataset[acno].name;
-        this.saveDetails();
-        alert("login successsful")
-        return true;
-      }
-      else {
-        alert("incorrect password")
-        return false;
-      }
+    
+    const data = {
+      acno,
+      password
     }
-    else {
-      alert("invalid accountnumber")
-      return false;
-    }
+    return this.http.post(environment.apiUrl+'/login',data,options)
+    // let dataset = this.accountDetails
+    // if (acno in dataset) {
+    //   var pswd1 = dataset[acno].password;
+    //   if (pswd1 == password) {
+    //     this.currentUser=dataset[acno].name;
+    //     this.saveDetails();
+    //     alert("login successsful")
+    //     return true;
+    //   }
+    //   else {
+    //     alert("incorrect password")
+    //     return false;
+    //   }
+    // }
+    // else {
+    //   alert("invalid accountnumber")
+    //   return false;
+    // }
 
   }
+
   deposit(acno:any,pswd:any,amount:any){
-    var amt=parseInt(amount)
-    let dataset = this.accountDetails
-    if (acno in dataset) {
-      var pswd1 = dataset[acno].password;
-      if (pswd1 == pswd) {
-        dataset[acno].balance+=amt;
-        this.saveDetails();
-        alert("Amount credited with " + amount + " New balance is " + dataset[acno].balance)
-      }
-      else {
-        alert("incorrect password")
-      }
+     
+    const data = {
+      acno,
+      pswd,
+      amount
     }
-    else {
-      alert("invalid accountnumber")
-    }
+    return this.http.post(environment.apiUrl+'/deposit',data,options)
+    // var amt=parseInt(amount)
+    // let dataset = this.accountDetails
+    // if (acno in dataset) {
+    //   var pswd1 = dataset[acno].password;
+    //   if (pswd1 == pswd) {
+    //     dataset[acno].balance+=amt;
+    //     this.saveDetails();
+    //     alert("Amount credited with " + amount + " New balance is " + dataset[acno].balance)
+    //   }
+    //   else {
+    //     alert("incorrect password")
+    //   }
+    // }
+    // else {
+    //   alert("invalid accountnumber")
+    // }
   }
   withdraw(acno:any,pswd:any,amount:any){
-    var amt=parseInt(amount)
-    let dataset = this.accountDetails
-    if (acno in dataset) {
-      var pswd1 = dataset[acno].password;
-      if (pswd1 == pswd) {
-        if(amount>dataset[acno].balance)
-        {
-            alert("insufficient balance")
-        }
-        else{
-        dataset[acno].balance-=amt;
-        this.saveDetails();
-        alert("Amount debited with " + amount + " New balance is " + dataset[acno].balance)
-        }
-      }
-      else {
-        alert("incorrect password")
-      }
+    const data = {
+      acno,
+      pswd,
+      amount
     }
-    else {
-      alert("invalid accountnumber")
-    }
+    return this.http.post(environment.apiUrl+'/withdraw',data,options)
+    // var amt=parseInt(amount)
+    // let dataset = this.accountDetails
+    // if (acno in dataset) {
+    //   var pswd1 = dataset[acno].password;
+    //   if (pswd1 == pswd) {
+    //     if(amount>dataset[acno].balance)
+    //     {
+    //         alert("insufficient balance")
+    //     }
+    //     else{
+    //     dataset[acno].balance-=amt;
+    //     this.saveDetails();
+    //     alert("Amount debited with " + amount + " New balance is " + dataset[acno].balance)
+    //     }
+    //   }
+    //   else {
+    //     alert("incorrect password")
+    //   }
+    // }
+    // else {
+    //   alert("invalid accountnumber")
+    // }
   }
+deleteAccDetails(acno:any){
+  return this.http.delete(environment.apiUrl+'/deleteAccDetails/'+acno,options)
+}
 }
 

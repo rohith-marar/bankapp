@@ -24,19 +24,22 @@ export class RegisterationComponent implements OnInit {
   ngOnInit(): void {
   }
   register() {
-   // if(this.registerForm.get('uname')?.errors){
+    // if(this.registerForm.get('uname')?.errors){
     //  alert("invalid username")
-   // }
-    
+    // }
+
     if (this.registerForm.valid) {
 
-      var result = this.dataService.register(this.registerForm.value.ano, this.registerForm.value.uname, this.registerForm.value.pswd)
-      if (result) {
-        this.router.navigateByUrl("")
-      }
-      else {
-        this.router.navigateByUrl("")
-      }
+      this.dataService.register(this.registerForm.value.ano, this.registerForm.value.uname, this.registerForm.value.pswd)
+        .subscribe(data => {
+          if (data) {
+            alert("Registeration successfull please login")
+            this.router.navigateByUrl("")
+          }
+        }, (data) => {
+          alert(data.error.message)
+        }
+        )
     }
     else {
       alert("invalid form")
